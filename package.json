@@ -1,0 +1,28 @@
+{
+  "name": "base",
+  "version": "1.0.0",
+  "description": "base for further backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "backend",
+    "api",
+    "swagger",
+    "ui",
+    "mvc",
+    "nodejs",
+    "base",
+    "basic"
+  ],
+  "author": "tungnx",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
+  },
+  "type": "module"
+}
