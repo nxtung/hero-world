@@ -9,6 +9,19 @@ const options = {
             description: 'API for backend ',
             version: '1.0.0',
         },
+        components: {
+            securitySchemes: {
+                bearerAuth: {
+                    type: "http",
+                    scheme: "bearer",
+                },
+            },
+        },
+        security: [
+            {
+                bearerAuth: [],
+            },
+        ],
     },
     explorer: true,
     customCss: '.swagger-ui .topbar { display: none }',

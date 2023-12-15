@@ -30,10 +30,20 @@ const router = express.Router()
  *                properties:
  *                  id:
  *                    type: number
- *                  carName:
+ *                  link:
  *                    type: string
- *                  carImage:
+ *                  name:
  *                    type: string
+ *                  image:
+ *                    type: string
+ *                  doors:
+ *                    type: string
+ *                  years:
+ *                    type: string
+ *                  type:
+ *                    type: string
+ *                  vote:
+ *                    type: number
  *       400:
  *         description: Bad request
  */
@@ -65,10 +75,20 @@ router.get('/api/cars', getCarsHandler)
  *                properties:
  *                  id:
  *                    type: number
- *                  carName:
+ *                  link:
  *                    type: string
- *                  carImage:
+ *                  name:
  *                    type: string
+ *                  image:
+ *                    type: string
+ *                  doors:
+ *                    type: string
+ *                  years:
+ *                    type: string
+ *                  type:
+ *                    type: string
+ *                  vote:
+ *                    type: number
  *       400:
  *         description: Bad request
  */
@@ -89,15 +109,22 @@ router.get('/api/car/:id', getCarHandler)
  *           schema:
  *            type: object
  *            required:
- *              - carName
- *              - carImage
+ *              - name
  *            properties:
- *              carName:
+ *              link:
  *                type: string
- *                default: New car name
- *              carImage:
+ *              name:
  *                type: string
- *                default: New car image path
+ *              image:
+ *                type: string
+ *              doors:
+ *                type: string
+ *              years:
+ *                type: string
+ *              type:
+ *                type: string
+ *              vote:
+ *                type: number
  *     responses:
  *      201:
  *        description: Created
@@ -123,18 +150,23 @@ router.post('/api/car', addCarHandler)
  *            type: object
  *            required:
  *              - id
- *              - carName
- *              - carImage
  *            properties:
  *              id:
  *                type: number
- *                default: 1
- *              carName:
+ *              link:
  *                type: string
- *                default: 'Hyndai Santafe'
- *              carImage:
+ *              name:
  *                type: string
- *                default: 'image/'
+ *              image:
+ *                type: string
+ *              doors:
+ *                type: string
+ *              years:
+ *                type: string
+ *              type:
+ *                type: string
+ *              vote:
+ *                type: number
  *     responses:
  *      200:
  *        description: Modified
@@ -163,8 +195,7 @@ router.put('/api/car', editCarHandler)
  *              - vote
  *            properties:
  *              vote:
- *                type: integer
- *                default: 0
+ *                type: number
  *     responses:
  *      200:
  *        description: Modified

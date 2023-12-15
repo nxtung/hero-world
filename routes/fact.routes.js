@@ -2,21 +2,22 @@ import express from 'express'
 import {
     getAllHandler,
     getSomeHandler,
-    getHeroDetailHandler,
-    addHeroHandler,
-    deleteHeroHandler,
-    editHeroHandler
-} from '../controllers/hero.controller.js'
+    getFactHandler,
+    addFactHandler,
+    deleteFactHandler,
+    editFactHandler,
+    getHeroFactHandler
+} from '../controllers/fact.controller.js'
 
 const router = express.Router()
 
 /**
  * @openapi
- * '/api/heroes':
+ * '/api/facts':
  *  get:
  *     tags:
- *     - Hero
- *     summary: Get all heroes
+ *     - Fact
+ *     summary: Get all heroe's facts
  *     responses:
  *       200:
  *         description: Success
@@ -29,32 +30,30 @@ const router = express.Router()
  *                properties:
  *                  id:
  *                    type: number
+ *                  heroId:
+ *                    type: number
  *                  name:
  *                    type: string
- *                  link:
- *                    type: string
- *                  image:
- *                    type: string
- *                  desc:
+ *                  value:
  *                    type: string
  *       400:
  *         description: Bad request
  */
 
-router.get('/api/heroes', getAllHandler)
+router.get('/api/facts', getAllHandler)
 
 
 /**
  * @openapi
- * '/api/hero/{number}':
+ * '/api/fact/{number}':
  *  get:
  *     tags:
- *     - Hero
- *     summary: Get some heroes
+ *     - Fact
+ *     summary: Get some hero's facts
  *     parameters:
  *     - name: number
  *       in: path
- *       description: The number of the hero
+ *       description: The number of the hero's fact
  *       required: true
  *     responses:
  *       200:
@@ -68,31 +67,29 @@ router.get('/api/heroes', getAllHandler)
  *                properties:
  *                  id:
  *                    type: number
+ *                  heroId:
+ *                    type: number
  *                  name:
  *                    type: string
- *                  link:
- *                    type: string
- *                  image:
- *                    type: string
- *                  desc:
+ *                  value:
  *                    type: string
  *       400:
  *         description: Bad request
  */
 
-router.get('/api/hero/:number', getSomeHandler)
+router.get('/api/fact/:number', getSomeHandler)
 
 /**
  * @openapi
- * '/api/heroDetails/{id}':
+ * '/api/factDetails/{id}':
  *  get:
  *     tags:
- *     - Hero
- *     summary: Get a hero by id
+ *     - Fact
+ *     summary: Get a fact by fact's id
  *     parameters:
  *      - id: id
  *        in: path
- *        description: The unique id of the hero
+ *        description: The unique id of the hero's fact
  *        required: true
  *     responses:
  *       200:
@@ -106,28 +103,63 @@ router.get('/api/hero/:number', getSomeHandler)
  *                properties:
  *                  id:
  *                    type: number
+ *                  heroId:
+ *                    type: number
  *                  name:
  *                    type: string
- *                  link:
- *                    type: string
- *                  image:
- *                    type: string
- *                  desc:
+ *                  value:
  *                    type: string
  *       400:
  *         description: Bad request
  */
 
-router.get('/api/heroDetails/:id', getHeroDetailHandler)
+router.get('/api/factDetails/:id', getFactHandler)
 
 
 /**
  * @openapi
- * '/api/hero':
+ * '/api/heroFact/{heroId}':
+ *  get:
+ *     tags:
+ *     - Fact
+ *     summary: Get a fact by hero's id
+ *     parameters:
+ *      - heroId: heroId
+ *        in: path
+ *        description: The unique id of the hero's id
+ *        required: true
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                type: object
+ *                properties:
+ *                  id:
+ *                    type: number
+ *                  heroId:
+ *                    type: number
+ *                  name:
+ *                    type: string
+ *                  value:
+ *                    type: string
+ *       400:
+ *         description: Bad request
+ */
+
+router.get('/api/heroFact/:heroId', getHeroFactHandler)
+
+
+/**
+ * @openapi
+ * '/api/fact':
  *  post:
  *     tags:
- *     - Hero
- *     summary: Create a hero
+ *     - Fact
+ *     summary: Create a hero's fact
  *     requestBody:
  *      required: true
  *      content:
@@ -135,15 +167,15 @@ router.get('/api/heroDetails/:id', getHeroDetailHandler)
  *           schema:
  *            type: object
  *            required:
+ *              - heroId
  *              - name
+ *              - value
  *            properties:
+ *              heroId:
+ *                type: number
  *              name:
  *                type: string
- *              link:
- *                type: string
- *              image:
- *                type: string
- *              desc:
+ *              value:
  *                type: string
  *     responses:
  *      201:
@@ -153,15 +185,15 @@ router.get('/api/heroDetails/:id', getHeroDetailHandler)
  *      404:
  *        description: Not Found
  */
-router.post('/api/hero', addHeroHandler)
+router.post('/api/fact', addFactHandler)
 
 /**
  * @openapi
- * '/api/hero':
+ * '/api/fact':
  *  put:
  *     tags:
- *     - Hero
- *     summary: Modify a hero
+ *     - Fact
+ *     summary: Modify a hero's fact
  *     requestBody:
  *      required: true
  *      content:
@@ -171,13 +203,11 @@ router.post('/api/hero', addHeroHandler)
  *            required:
  *              - id
  *            properties:
+ *              heroId:
+ *                type: number
  *              name:
  *                type: string
- *              link:
- *                type: string
- *              image:
- *                type: string
- *              desc:
+ *              value:
  *                type: string
  *     responses:
  *      200:
@@ -187,19 +217,19 @@ router.post('/api/hero', addHeroHandler)
  *      404:
  *        description: Not Found
  */
-router.put('/api/hero', editHeroHandler)
+router.put('/api/fact', editFactHandler)
 
 /**
  * @openapi
- * '/api/hero/{id}':
+ * '/api/fact/{id}':
  *  delete:
  *     tags:
- *     - Hero
- *     summary: Remove hero by id
+ *     - Fact
+ *     summary: Remove fact by id
  *     parameters:
  *      - name: id
  *        in: path
- *        description: The unique id of the hero
+ *        description: The unique id of the hero's fact
  *        required: true
  *     responses:
  *      200:
@@ -209,6 +239,6 @@ router.put('/api/hero', editHeroHandler)
  *      404:
  *        description: Not Found
  */
-router.delete('/api/hero/:id', deleteHeroHandler)
+router.delete('/api/fact/:id', deleteFactHandler)
 
 export default router

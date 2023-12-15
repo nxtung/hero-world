@@ -2,21 +2,21 @@ import express from 'express'
 import {
     getAllHandler,
     getSomeHandler,
-    getHeroDetailHandler,
-    addHeroHandler,
-    deleteHeroHandler,
-    editHeroHandler
-} from '../controllers/hero.controller.js'
+    getHeroCarDetailHandler,
+    addHeroCarHandler,
+    deleteHeroCarHandler,
+    editHeroCarHandler
+} from '../controllers/heroCar.controller.js'
 
 const router = express.Router()
 
 /**
  * @openapi
- * '/api/heroes':
+ * '/api/heroCars':
  *  get:
  *     tags:
- *     - Hero
- *     summary: Get all heroes
+ *     - Hero playing with Cars
+ *     summary: Get all hero playing with car
  *     responses:
  *       200:
  *         description: Success
@@ -29,32 +29,30 @@ const router = express.Router()
  *                properties:
  *                  id:
  *                    type: number
- *                  name:
- *                    type: string
- *                  link:
- *                    type: string
- *                  image:
- *                    type: string
- *                  desc:
+ *                  heroId:
+ *                    type: number
+ *                  carId:
+ *                    type: number
+ *                  relation:
  *                    type: string
  *       400:
  *         description: Bad request
  */
 
-router.get('/api/heroes', getAllHandler)
+router.get('/api/heroCars', getAllHandler)
 
 
 /**
  * @openapi
- * '/api/hero/{number}':
+ * '/api/heroCar/{number}':
  *  get:
  *     tags:
- *     - Hero
- *     summary: Get some heroes
+ *     - Hero playing with Cars
+ *     summary: View some records
  *     parameters:
  *     - name: number
  *       in: path
- *       description: The number of the hero
+ *       description: The number of records
  *       required: true
  *     responses:
  *       200:
@@ -68,31 +66,29 @@ router.get('/api/heroes', getAllHandler)
  *                properties:
  *                  id:
  *                    type: number
- *                  name:
- *                    type: string
- *                  link:
- *                    type: string
- *                  image:
- *                    type: string
- *                  desc:
+ *                  heroId:
+ *                    type: number
+ *                  carId:
+ *                    type: number
+ *                  relation:
  *                    type: string
  *       400:
  *         description: Bad request
  */
 
-router.get('/api/hero/:number', getSomeHandler)
+router.get('/api/heroCar/:number', getSomeHandler)
 
 /**
  * @openapi
- * '/api/heroDetails/{id}':
+ * '/api/heroCarDetail/{id}':
  *  get:
  *     tags:
- *     - Hero
- *     summary: Get a hero by id
+ *     - Hero playing with Cars
+ *     summary: Get a record's details
  *     parameters:
  *      - id: id
  *        in: path
- *        description: The unique id of the hero
+ *        description: The unique id 
  *        required: true
  *     responses:
  *       200:
@@ -106,28 +102,26 @@ router.get('/api/hero/:number', getSomeHandler)
  *                properties:
  *                  id:
  *                    type: number
- *                  name:
- *                    type: string
- *                  link:
- *                    type: string
- *                  image:
- *                    type: string
- *                  desc:
+ *                  heroId:
+ *                    type: number
+ *                  carId:
+ *                    type: number
+ *                  relation:
  *                    type: string
  *       400:
  *         description: Bad request
  */
 
-router.get('/api/heroDetails/:id', getHeroDetailHandler)
+router.get('/api/heroCarDetail/:id', getHeroCarDetailHandler)
 
 
 /**
  * @openapi
- * '/api/hero':
+ * '/api/heroCar':
  *  post:
  *     tags:
- *     - Hero
- *     summary: Create a hero
+ *     - Hero playing with Cars
+ *     summary: Create a record, mapping hero - car & their relation
  *     requestBody:
  *      required: true
  *      content:
@@ -135,15 +129,15 @@ router.get('/api/heroDetails/:id', getHeroDetailHandler)
  *           schema:
  *            type: object
  *            required:
- *              - name
+ *              - heroId
+ *              - carId
+ *              - relation
  *            properties:
- *              name:
- *                type: string
- *              link:
- *                type: string
- *              image:
- *                type: string
- *              desc:
+ *              heroId:
+ *                type: number
+ *              carId:
+ *                type: number
+ *              relation:
  *                type: string
  *     responses:
  *      201:
@@ -153,15 +147,15 @@ router.get('/api/heroDetails/:id', getHeroDetailHandler)
  *      404:
  *        description: Not Found
  */
-router.post('/api/hero', addHeroHandler)
+router.post('/api/heroCar', addHeroCarHandler)
 
 /**
  * @openapi
- * '/api/hero':
+ * '/api/heroCar':
  *  put:
  *     tags:
- *     - Hero
- *     summary: Modify a hero
+ *     - Hero playing with Cars
+ *     summary: Modify a record
  *     requestBody:
  *      required: true
  *      content:
@@ -171,13 +165,13 @@ router.post('/api/hero', addHeroHandler)
  *            required:
  *              - id
  *            properties:
- *              name:
- *                type: string
- *              link:
- *                type: string
- *              image:
- *                type: string
- *              desc:
+ *              id:
+ *                type: number
+ *              heroId:
+ *                type: number
+ *              carId:
+ *                type: number
+ *              relation:
  *                type: string
  *     responses:
  *      200:
@@ -187,19 +181,19 @@ router.post('/api/hero', addHeroHandler)
  *      404:
  *        description: Not Found
  */
-router.put('/api/hero', editHeroHandler)
+router.put('/api/heroCar', editHeroCarHandler)
 
 /**
  * @openapi
- * '/api/hero/{id}':
+ * '/api/heroCar/{id}':
  *  delete:
  *     tags:
- *     - Hero
- *     summary: Remove hero by id
+ *     - Hero playing with Cars
+ *     summary: Remove a record by it's id
  *     parameters:
  *      - name: id
  *        in: path
- *        description: The unique id of the hero
+ *        description: The unique id of the record
  *        required: true
  *     responses:
  *      200:
@@ -209,6 +203,6 @@ router.put('/api/hero', editHeroHandler)
  *      404:
  *        description: Not Found
  */
-router.delete('/api/hero/:id', deleteHeroHandler)
+router.delete('/api/heroCar/:id', deleteHeroCarHandler)
 
 export default router

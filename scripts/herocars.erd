@@ -1,0 +1,49 @@
+erdiagram Model
+
+notation=default
+
+entity Cars {
+   id: int key
+	link: string
+	name: string
+   image: string
+   doors: string
+   years: string
+   type: string
+   vote: integer
+}
+
+entity HeroCar {
+   id: int key
+	carId: int
+   heroId: int
+   relation: string
+}
+
+entity Heroes {
+   id: int key
+ 	name: string
+	link: string
+   image: string
+   desc: string
+}
+
+
+entity Facts {
+   id: int key
+   heroId: string
+	name: string
+	value: string
+}
+
+relationship Hero_Fact {
+   Heroes[1]  -> Facts[N]
+}
+
+relationship Car_Hero {
+   Cars[1] -> HeroCar[N]
+}
+
+relationship Hero_Car {
+   Heroes[1] -> HeroCar[N]
+}

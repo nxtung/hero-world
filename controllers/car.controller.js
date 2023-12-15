@@ -1,76 +1,40 @@
-let cars = [
-    {
-        id: 1,
-        carName: 'Batmobile',
-        carImage: 'https://static.wikia.nocookie.net/batman/images/e/e5/Batmobile_New_52.png',
-        vote: 1
-    },
-    {
-        id: 2,
-        carName: 'Spider Mobile',
-        carImage: 'https://static1.srcdn.com/wordpress/wp-content/uploads/2022/05/Spider-Man-sees-the-Spider-Mobile.png',
-        vote: 12
-    },
-    {
-        id: 3,
-        carName: '2005 Audi A8 6.0 W12',
-        carImage: 'https://static.wikia.nocookie.net/transporter/images/6/65/I009694.jpg',
-        vote: 7
-    }
-]
+import HeroworldDao from '../dataAccess/repos/dao.js';
+import CarsRepository from '../dataAccess/repos/car_repository.js';
+import CarServices from '../services/carServices.js';
+
+const dao = HeroworldDao.getInstance()
+const carRepo = new CarsRepository(dao)
+const carServices = new CarServices(carRepo)
 
 export async function getCarsHandler(req, res) {
-    res.status(200).json(cars)
+    res.status(200).json(await carServices.getCars())
 }
 
 export async function getCarHandler(req, res) {
-    const car = cars.find((car) => car.id == req.params.id)
-    if (car === undefined) {
+    const _cars = await carServices.getById(req.params.id)
+
+    if (_cars === undefined) {
         res.status(400).json('Not found')
-    } else res.status(200).json(car)
+    } else res.status(200).json(_cars)
 }
 
 export async function addCarHandler(req, res) {
-    if (cars.find((car) => car.id === req.body.id)) {
-        res.status(409).json('Car id must be unique')
-    }
-    else {
-        cars.push(req.body)
-        res.status(200).json(cars)
-    }
+    const r = await carServices.create(req.body)
+    res.status(200).json(r)
 }
 
 export async function deleteCarHandler(req, res) {
-    const index = cars.findIndex((car) => car.id == req.params.id)
-    if (index >= 0) {
-        cars.splice(index, 1)
-        res.status(200).json(cars)
-    } else res.status(400).send()
+    const r = await carServices.delete(req.params.id)
+    res.status(200).json(r)
+
 }
 
 export async function editCarHandler(req, res) {
-    const index = cars.findIndex((car) => car.id == req.body.id)
-    if (index >= 0) {
-        cars.splice(index, 1, req.body)
-        res.status(200).json(cars)
-    } else res.status(400).send()
+    const r = await carServices.update(req.body)
+    res.status(200).json(r)
 }
-
 
 export async function updateVoteHandler(req, res) {
-    const index = cars.findIndex((car) => car.id == req.params.id)
-    if (index >= 0) {
-        res.status(200).json(increaseVote(index, cars))
-    } else res.status(400).send()
-}
-
-function increaseVote(index, jsonArr) {
-    for (var i = 0; i < jsonArr.length; i++) {
-        if (jsonArr[i].id == jsonArr[index].id) {
-            console.log(index);
-            jsonArr[i].vote += 1;
-            break;
-        }
-    }
-    return jsonArr[index];
+    const r = await carServices.updateVote({ id: req.params.id, vote: req.body.vote })
+    res.status(200).json(r)
 }
