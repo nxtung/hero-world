@@ -5,7 +5,7 @@ class CarServices {
     }
 
     async getCars() {
-        return this.carRepo.getSome(3).then((rows) => {
+        return this.carRepo.getAll().then((rows) => {
             let cars = []
             rows.forEach(c => {
                 cars.push(c)
@@ -30,8 +30,8 @@ class CarServices {
         return await this.carRepo.update(car)
     }
 
-    async updateVote(car) {
-        return await this.carRepo.updateVote(car)
+    async updateVote(id) {
+        return await this.carRepo.updateVote(id)
     }
 }
 

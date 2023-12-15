@@ -185,17 +185,11 @@ router.put('/api/car', editCarHandler)
  *     tags:
  *     - Car
  *     summary: Update car's vote
- *     requestBody:
- *      required: true
- *      content:
- *        application/json:
- *           schema:
- *            type: object
- *            required:
- *              - vote
- *            properties:
- *              vote:
- *                type: number
+ *     parameters:
+ *      - id: id
+ *        in: path
+ *        description: The unique id of the car
+ *        required: true
  *     responses:
  *      200:
  *        description: Modified

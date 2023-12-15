@@ -35,6 +35,6 @@ export async function editCarHandler(req, res) {
 }
 
 export async function updateVoteHandler(req, res) {
-    const r = await carServices.updateVote({ id: req.params.id, vote: req.body.vote })
+    const r = await carServices.updateVote({ id: req.params.id })
     res.status(200).json(r)
 }

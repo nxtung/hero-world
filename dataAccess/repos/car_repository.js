@@ -20,10 +20,10 @@ class CarsRepository {
     }
 
     updateVote(car) {
-        const { id, vote } = car
+        const { id } = car
         return this.dao.runQuery(
-            `UPDATE cars SET vote = ? WHERE id = ?`,
-            [vote, id]
+            `UPDATE cars SET vote = vote + 1 WHERE id = ?`,
+            [id]
         )
     }
 

@@ -17,6 +17,10 @@ app.use(morgan('dev'))
 app.use(cors())
 app.use(express.json())
 app.use(requestTime)
+
+app.use(express.static('resource'));
+app.use('/images', express.static('resource'));
+
 app.use(router)
 
 app.listen(port, () => {
