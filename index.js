@@ -23,5 +23,3 @@ app.listen(port, () => {
     console.log(`Backend app listening at http://localhost:${port}`)
     swaggerDocs(app, port)
 })
-
-
